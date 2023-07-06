@@ -10,7 +10,8 @@ from modules import shared
 def get_path(*p: str) -> str:
     dir = os.path.join(scripts.basedir(), *p)
     if not os.path.isdir(dir):
-        dirs = [os.path.join(scripts.basedir(), "extensions", "sd-face-editor", *p), os.path.join(shared.cmd_opts.data_dir, "extensions", "sd-face-editor", *p)]
+        cur_folder = '/'.join(os.path.dirname(__file__).split('/')[:-2])
+        dirs = [os.path.join(scripts.basedir(), "extensions", "sd-face-editor", *p), os.path.join(cur_folder, *p)]
         for dir in dirs:
             if os.path.isdir(dir):
                 return dir
