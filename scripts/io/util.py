@@ -10,9 +10,11 @@ from modules import shared
 def get_path(*p: str) -> str:
     dir = os.path.join(scripts.basedir(), *p)
     if not os.path.isdir(dir):
-        dir = os.path.join(scripts.basedir(), "extensions", "sd-face-editor", *p)
-        if not os.path.isdir(dir):
-            raise RuntimeError(f"not found:{dir}")
+        dirs = [os.path.join(scripts.basedir(), "extensions", "sd-face-editor", *p), os.path.join(shared.cmd_opts.data_dir, "extensions", "sd-face-editor", *p)]
+        for dir in dirs:
+            if os.path.isdir(dir):
+                return dir
+        raise RuntimeError(f"not found:{dir}")
     return dir
 
 
